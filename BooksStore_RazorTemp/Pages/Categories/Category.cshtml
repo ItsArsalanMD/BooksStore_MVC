@@ -1,0 +1,46 @@
+﻿@page
+@model CategoryModel
+
+@{
+    ViewData["Title"] = "Category";
+}
+
+<div class="row my-3 mt-5">
+    <div class="col-sm-12 col-md-6">
+        <h2 class="text-dark">Category List</h2>
+    </div>
+    <div class="col-sm-12 col-md-6 text-end">
+        <a asp-page="/Categories/Create"  class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Create New Category
+        </a>
+    </div>
+</div>
+
+<table class="table table-responsive table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th class="bg-info text-white py-3">Category Name</th>
+            <th class="bg-info text-white text-center py-3">Display Order</th>
+            <th class="bg-info py-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var catlist in Model.categories.OrderBy(u=> u.DisplayOrders))
+        {
+            <tr>
+                <td class="py-3">@catlist.Name</td>
+                <td class="py-3 text-center">@catlist.DisplayOrders</td>
+                <td class="text-end">
+                    <div class="w-30 btn-group" role="group">
+                        <a asp-page="/categories/Edit" asp-route-Id="@catlist.Id" class="btn btn-outline-success" >
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                        <a asp-page="/categories/Delete" asp-route-Id="@catlist.Id" class="btn btn-outline-danger">
+                            <i class="bi bi-trash3-fill"></i> Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

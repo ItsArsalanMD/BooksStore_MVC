@@ -1,0 +1,49 @@
+﻿@page
+@model BooksStore_RazorTemp.Pages.Categories.CreateModel
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+
+<form method="post">
+    <div class="card bg-secondary border box-shadow p-3 mt-5">
+        <div class="px-1 pt-3 border-bottom">
+            <h2 class="card-header pb-3">Create Category</h2>
+            <hr />
+        </div>
+
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="card-body">
+            <div class="mb-3 row">
+                <div class="form-group mb-3">
+                    <label asp-for="Category.Name"></label>
+                    <input type="text" asp-for="Category.Name" class="form-control">
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="form-group mb-3">
+                    <label asp-for="Category.DisplayOrders"></label>
+                    <input asp-for="Category.DisplayOrders" class="form-control" />
+                    <span asp-validation-for="Category.DisplayOrders" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <input type="submit" value="Create" class="btn btn-outline-info form-control" />
+                </div>
+                <div class="col-6 col-md-3">
+                    <a  asp-page="/Caregories/category" class="btn btn-dark form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
