@@ -1,0 +1,183 @@
+﻿@model ProductVM
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+    <div class="row justify-content-center my-4">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h4 class="text-white text-uppercase ps-3">@(Model.Product.Id != 0 ? "Update" : "Create")  Product</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-4 align-self-center d-flex align-items-center justify-content-center">
+                           <div class="image-wrapper px-5 py-4 gap-2 bg-gradient-light">
+                               <div class="responsive-img mb-4">
+                                    @if(Model.Product.Id != 0)
+                                    {
+                                        <img src="@Model.Product.ImageUrl" alt="pick image from files" id="uploaded-image" class="mw-100 rounded" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/assets/img/products/upload.png" alt="pick image from files" id="uploaded-image" class="mw-100 rounded" />
+                                    }
+                                   
+                               </div>
+                                <label for="upload-img" id="image-btn" class="btn btn-primary m-0">Upload Image</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="p-0">
+
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="card-body">
+                                    <div class="mb-2 row">
+                                        <div class=" mb-3">
+                                            <div class="form-floating">
+                                                <input asp-for="Product.Title" class="form-control border px-2" />
+                                                <label class="form-label" asp-for="Product.Title"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="form-fgroup mb-2">
+                                            <div class="form-floating">
+                                                <textarea asp-for="Product.Description" class=" form-control border px-2"></textarea>
+                                                <label asp-for="Product.Description" class="form-label"></label>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.ISBN" class="form-control border px-2" />
+                                                    <label asp-for="Product.ISBN" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.Author" class="form-control border px-2" />
+                                                    <label asp-for="Product.Author" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.ListPrice" class="form-control border px-2" />
+                                                    <label asp-for="Product.ListPrice" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.Price" class="form-control border px-2" />
+                                                    <label asp-for="Product.Price" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.Price50" class="form-control border px-2" />
+                                                    <label asp-for="Product.Price50" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-floating">
+                                                    <input asp-for="Product.Price100" class="form-control border px-2" />
+                                                    <label asp-for="Product.Price100" class="form-label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="form-group mb-3">
+                                            <div class="form-floating">
+                                                <select asp-for="@Model.Product.CategoryId"
+                                                        asp-items="@Model.categoryList"
+                                                        class="form-select border px-2 "
+                                                        aria-label="Floating label select example"
+                                                >
+                                                    <option disabled selected>-- Select Category --</option>
+                                                </select>
+                                                <label asp-for="Product.CategoryId" class="form-label"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="file" hidden id="upload-img" name="file" />
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            @if (Model.Product.Id != 0)
+                                            {
+                                                <input type="submit" value="Update" class="btn btn-primary form-control" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Create" class="btn btn-primary form-control" />
+                                            }
+
+                                        </div>
+                                        <div class="col-6">
+                                            <a asp-controller="Product"
+                                               asp-action="index" class="btn btn-dark form-control">
+                                                Back to List
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        let image = document.getElementById('uploaded-image');
+
+        let input = document.getElementById('upload-img');
+
+        input.onchange = function () {
+            image.src = URL.createObjectURL(input.files[0]);
+        };
+    </script>
+}

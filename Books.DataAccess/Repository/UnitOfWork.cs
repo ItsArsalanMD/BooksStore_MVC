@@ -14,10 +14,14 @@ namespace Books.DataAccess.Repository
 
         public ICategoryRepo CategoryRepo { get; private set; }
 
+        public IProductRepo ProductRepo { get; private set; }
+
         public UnitOfWork(AppDbContext data)
         {
             this._data = data;
             CategoryRepo = new CategoryRepository(_data);
+
+            ProductRepo = new ProductRepository(_data);
         }
 
         public void Save()

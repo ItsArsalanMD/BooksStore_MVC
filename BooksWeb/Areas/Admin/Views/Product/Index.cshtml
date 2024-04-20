@@ -1,0 +1,107 @@
+﻿@model List<Product>;
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="row my-4">
+
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <h4 class="text-white  ps-3 text-uppercase">Products List</h4>
+                        </div>
+                        <div class="col-sm-12 col-md-6 text-end align-item-center">
+                            <a asp-controller="Product" asp-action="Upsert" class="btn btn-success mx-3">
+                                <i class="bi bi-plus-circle"></i> Create New Product
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive pt-2 px-4">
+                    <table id="tblData" class="table mdl-data-table table-responsive align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <h6>Title</h6>
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <h6 class="">ISBN</h6>
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <h6 class="">Price</h6>
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <h6 class="">Author</h6>
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <h6 class="">Category</h6>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        @product.Title
+                                    </td>
+                                    <td>
+                                        @product.ISBN
+                                    </td>
+                                    <td class="text-start">
+                                        @product.Price
+                                    </td>
+                                    <td>
+                                        @product.Author
+                                    </td>
+                                    <td>
+                                        @product.Category.Name
+                                    </td>
+                                    <td class="text-end">
+                                        <form id="delete-form" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" method="post">
+                                            <div class="row w-95 justify-content-end">
+                                                <div class="col-md-5 text-end align-self-center">
+                                                    <a 
+                                                        asp-controller="Product" 
+                                                        asp-action="Upsert" 
+                                                        asp-route-Id="@product.Id"
+                                                        class="form-control mb-0 btn btn-dark"
+                                                    >
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-5 text-end align-self-center">
+                                                    <a 
+                                                        id="submit"
+                                                       onclick="DeleteConfirm('/admin/product/delete/@product.Id')"
+                                                       class="form-control mb-0 btn btn-danger"
+                                                    >
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+    
+}
